@@ -1,0 +1,11 @@
+*{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans Tamil",sans-serif;background:#eef4f8;color:#222}
+header{background:#1976b9;color:#fff;text-align:center;padding:25px 15px}header h1{margin:0;font-size:30px}header p{font-size:20px}
+.buttons{margin:20px auto;max-width:1200px;padding:20px;background:#fff;border-radius:15px;display:flex;gap:12px;flex-wrap:wrap}
+button{border:0;padding:14px 24px;border-radius:10px;background:#168b63;color:#fff;font-size:17px;font-weight:bold;cursor:pointer}button.danger{background:#d43b2f}
+.table-box{margin:20px;background:#fff;padding:15px;border-radius:15px;overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:1500px}th,td{border:1px solid #aaa;padding:8px;text-align:center}
+thead th{background:#e6f0f7;font-size:16px}tbody tr:nth-child(even){background:#f7f7f7}
+input{width:100%;min-width:100px;padding:9px;border:1px solid #bbb;border-radius:5px;font-size:15px}.name{min-width:180px}
+tfoot{background:#dcecf7;font-weight:bold}.result{margin:20px;padding:25px;background:#fff;border-radius:15px}.result h2{margin-top:0}
+#summary{font-size:20px;line-height:2}@media(max-width:600px){header h1{font-size:24px}.buttons{margin:10px}button{padding:12px 18px}.table-box{margin:10px}}
+@media print{.buttons{display:none}body{background:#fff}.table-box{margin:0}}
