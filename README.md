@@ -11,3 +11,4 @@ Mobile-friendly Tamil SHG data entry and calculator.
 
 ## Deploy
 Upload all files to the GitHub repository and connect the repository to Vercel.
+copyright ©️ kalaikannan 
