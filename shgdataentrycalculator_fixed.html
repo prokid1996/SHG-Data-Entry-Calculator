@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHG Data Entry Calculator</title>
+<style>
+body{font-family:Arial,'Noto Sans Tamil',sans-serif;margin:0;background:#f3f6f9;color:#222}
+header{background:#1769aa;color:#fff;text-align:center;padding:18px}
+.wrap{padding:12px;max-width:1500px;margin:auto}.card{background:#fff;padding:14px;margin-bottom:12px;border-radius:10px;box-shadow:0 2px 8px #0002}
+button{padding:10px 14px;border:0;border-radius:7px;margin:3px;cursor:pointer;font-weight:bold}
+.primary{background:#1769aa;color:#fff}.green{background:#168a55;color:#fff}.danger{background:#c0392b;color:#fff}
+.table{overflow:auto}table{border-collapse:collapse;min-width:1250px;width:100%}
+th,td{border:1px solid #ccc;padding:5px;text-align:center}th{background:#eaf2f8}
+input{width:90px;padding:7px;border:1px solid #bbb;border-radius:5px}.name{width:150px}
+.calc{background:#f5f5f5;font-weight:bold}.total{background:#fff0bd;font-weight:bold}
+.summary{display:flex;gap:8px;flex-wrap:wrap}.box{padding:10px;background:#eef6ff;border:1px solid #cce0f5;border-radius:8px}
+@media print{button{display:none}.card{box-shadow:none}}
+</style></head>
+<body>
+<header><h2>சுய உதவிக் குழு – Data Entry & Calculator</h2><div>20 உறுப்பினர்கள்</div></header>
+<div class="wrap">
+<div class="card">
+<button class="primary" onclick="resetRows()">20 உறுப்பினர்கள்</button>
+<button class="green" onclick="save()">💾 Save</button>
+<button onclick="load()">↻ Load</button>
+<button onclick="print()">🖨 Print</button>
+<button class="danger" onclick="clearAll()">Clear</button>
+</div>
+<div class="card"><div class="table"><table id="t">
+<thead><tr>
+<th>#</th><th>உறுப்பினர் பெயர்</th><th>2 இதுவரை வரவு</th><th>3 இம்மாதம் வரவு</th><th>4 மொத்தம்</th>
+<th>5 இதுவரை பெற்ற கடன்</th><th>6 இம்மாத தவணை வரவு</th><th>7 இம்மாதம் பெற்ற கடன்</th>
+<th>8 கடன் தவணை வரவு</th><th>9 கடன் பாக்கி</th><th>10 இதுவரை வட்டி</th><th>11 இம்மாத வட்டி</th><th>12 மொத்த வட்டி</th>
+</tr></thead><tbody></tbody><tfoot><tr id="tot"></tr></tfoot></table></div></div>
+<div class="card"><h3>மொத்த முடிவு</h3><div id="sum" class="summary"></div></div>
+</div>
+<script>
+const tbody=document.querySelector('#t tbody'), N=20;
+const keys=['c2','c3','c5','c6','c7','c8','c10','c11'];
+function n(v){return parseFloat(v)||0}
+function f(v){return n(v).toLocaleString('en-IN')}
+function row(d={},i){
+ let tr=document.createElement('tr');
+ tr.innerHTML='<td>'+(i+1)+'</td>'+
+ '<td><input class="name" data-k="name" value="'+(d.name||'')+'"></td>'+
+ keys.map(k=>'<td><input type="number" data-k="'+k+'" value="'+(d[k]??'')+'"></td>').join('')+
+ '<td class="calc" data-k="c4">0</td><td class="calc" data-k="c9">0</td><td class="calc" data-k="c12">0</td>';
+ /* move calculated columns to their correct positions */
+ let cells=tr.children;
+ let c4=cells[12]; let c9=cells[13]; let c12=cells[14];
+ tr.removeChild(c4); tr.removeChild(c9); tr.removeChild(c12);
+ cells=tr.children; tr.insertBefore(c4,cells[4]); tr.insertBefore(c9,cells[9]); tr.appendChild(c12);
+ tr.querySelectorAll('input').forEach(x=>x.oninput=calc);
+ tbody.appendChild(tr);
+}
+function resetRows(){tbody.innerHTML='';for(let i=0;i<N;i++)row({},i);calc()}
+function calc(){
+ let s={c2:0,c3:0,c4:0,c5:0,c6:0,c7:0,c8:0,c9:0,c10:0,c11:0,c12:0};
+ [...tbody.rows].forEach(tr=>{
+  const g=k=>n(tr.querySelector('[data-k="'+k+'"]')?.value);
+  let c4=g('c2')+g('c3');
+  let c9=Math.max(g('c5')+g('c7')-g('c6')-g('c8'),0);
+  let c12=g('c10')+g('c11');
+  tr.querySelector('[data-k="c4"]').textContent=f(c4);
+  tr.querySelector('[data-k="c9"]').textContent=f(c9);
+  tr.querySelector('[data-k="c12"]').textContent=f(c12);
+  s.c2+=g('c2');s.c3+=g('c3');s.c4+=c4;s.c5+=g('c5');s.c6+=g('c6');s.c7+=g('c7');s.c8+=g('c8');s.c9+=c9;s.c10+=g('c10');s.c11+=g('c11');s.c12+=c12;
+ });
+ let order=['c2','c3','c4','c5','c6','c7','c8','c9','c10','c11','c12'];
+ document.querySelector('#tot').innerHTML='<td colspan="2">மொத்தம்</td>'+order.map(k=>'<td class="total">'+f(s[k])+'</td>').join('');
+ document.querySelector('#sum').innerHTML=['c4','c5','c6','c7','c9','c12'].map((k,i)=>'<div class="box"><b>'+['மொத்த வரவு','மொத்த கடன்','தவணை வரவு','இம்மாத கடன்','கடன் பாக்கி','மொத்த வட்டி'][i]+'</b><br>₹'+f(s[k])+'</div>').join('');
+}
+function data(){return [...tbody.rows].map(tr=>{let o={};tr.querySelectorAll('[data-k]').forEach(x=>o[x.dataset.k]=x.value||x.textContent);return o})}
+function save(){localStorage.setItem('shgData',JSON.stringify(data()));alert('Data Saved ✓')}
+function load(){let d=JSON.parse(localStorage.getItem('shgData')||'[]');if(!d.length)return alert('Saved data இல்லை');tbody.innerHTML='';d.forEach((x,i)=>row(x,i));for(let i=d.length;i<N;i++)row({},i);calc()}
+function clearAll(){if(confirm('அனைத்து data-வும் அழிக்கவா?')){localStorage.removeItem('shgData');resetRows()}}
+resetRows();
+</script></body></html>
