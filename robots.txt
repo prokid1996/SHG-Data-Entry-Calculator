@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shg-data-entry-calculator-ob4fb6ac1-kk1996.vercel.app/sitemap.xml

@@ -1,0 +1,2 @@
+# Google AdSense - replace YOUR_PUBLISHER_ID with your actual publisher ID.
+# google.com, pub-YOUR_PUBLISHER_ID, DIRECT, f08c47fec0942fa0
