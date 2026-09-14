@@ -319,11 +319,11 @@ input.ro {
 }
 
 /* =========================================================
-   A4 LANDSCAPE PRINT & PDF STYLES
+   A4 LANDSCAPE PRINT & PDF HEADERS REPAIR STYLES
    ========================================================= */
 @page {
   size: A4 landscape;
-  margin: 6mm 8mm;
+  margin: 4mm 6mm;
 }
 
 @media print {
@@ -333,12 +333,14 @@ input.ro {
     padding: 0 !important;
     background: #ffffff !important;
     color: #000000 !important;
-    font-size: 9.5px !important;
+    font-size: 8px !important;
   }
 
+  /* பிரிண்டில் தேவையில்லாத பட்டன்கள் மற்றும் ஃபார்முலா குறிப்புகள் முழுமையாக மறைக்கப்படும் */
   .btn-group,
   #statusMsg,
-  .modal-overlay {
+  .modal-overlay,
+  .formula-footer {
     display: none !important;
   }
 
@@ -351,29 +353,43 @@ input.ro {
     border: none !important;
   }
 
+  .app-header {
+    margin-bottom: 3px !important;
+  }
+
+  .app-header h2 {
+    font-size: 12px !important;
+    margin: 0 !important;
+  }
+
+  .subtitle {
+    font-size: 8.5px !important;
+    margin: 1px 0 3px 0 !important;
+  }
+
   .date-month-container {
     background: transparent !important;
     border: none !important;
     padding: 0 !important;
-    margin-bottom: 6px !important;
+    margin-bottom: 4px !important;
   }
 
   .date-field label {
-    font-size: 8.5px !important;
+    font-size: 8px !important;
   }
 
   .date-field input {
     border: none !important;
     border-bottom: 0.5px solid #000 !important;
     font-size: 8.5px !important;
-    width: 90px !important;
+    width: 85px !important;
     padding: 0 !important;
     background: transparent !important;
   }
 
   .table-wrapper {
     overflow: visible !important;
-    margin-bottom: 8px !important;
+    margin-bottom: 6px !important;
     border: none !important;
   }
 
@@ -384,23 +400,45 @@ input.ro {
     table-layout: fixed !important;
   }
 
-  th, td {
-    padding: 2px 1px !important;
-    font-size: 8.5px !important;
-    border: 0.5px solid #475569 !important;
-  }
-
   th {
     background-color: #f1f5f9 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    padding: 3px 1px !important;
+    font-size: 7.5px !important;
+    line-height: 1.15 !important;
+    font-weight: 700 !important;
+    vertical-align: middle !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
   }
+
+  td {
+    padding: 1.5px 1px !important;
+    font-size: 8px !important;
+    border: 0.5px solid #475569 !important;
+  }
+
+  /* தலைப்புகள் ஒன்றன் மேல் ஒன்று படியாமல் தடுக்கும் காலம்களின் விகிதாசார அகலம் */
+  th:nth-child(1), td:nth-child(1) { width: 3.5%; }
+  th:nth-child(2), td:nth-child(2) { width: 12%; text-align: left; }
+  th:nth-child(3), td:nth-child(3) { width: 7.5%; }
+  th:nth-child(4), td:nth-child(4) { width: 7.5%; }
+  th:nth-child(5), td:nth-child(5) { width: 8%; }
+  th:nth-child(6), td:nth-child(6) { width: 8.5%; }
+  th:nth-child(7), td:nth-child(7) { width: 8.5%; }
+  th:nth-child(8), td:nth-child(8) { width: 7.5%; }
+  th:nth-child(9), td:nth-child(9) { width: 7.5%; }
+  th:nth-child(10), td:nth-child(10) { width: 8%; }
+  th:nth-child(11), td:nth-child(11) { width: 7.5%; }
+  th:nth-child(12), td:nth-child(12) { width: 7%; }
+  th:nth-child(13), td:nth-child(13) { width: 7.5%; }
 
   input {
     border: none !important;
     background: transparent !important;
-    font-size: 8.5px !important;
-    padding: 1px !important;
+    font-size: 8px !important;
+    padding: 0 !important;
     width: 100% !important;
     box-shadow: none !important;
   }
@@ -409,7 +447,8 @@ input.ro {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 8px !important;
-    margin-bottom: 8px !important;
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
     page-break-inside: avoid !important;
   }
 
@@ -420,22 +459,22 @@ input.ro {
   }
 
   .box h3 {
-    font-size: 11px !important;
-    margin-bottom: 4px !important;
+    font-size: 10px !important;
+    margin-bottom: 3px !important;
     padding-bottom: 2px !important;
   }
 
   .field-row {
-    margin-bottom: 2px !important;
+    margin-bottom: 1.5px !important;
   }
 
   .field-row label {
-    font-size: 8.5px !important;
+    font-size: 8px !important;
   }
 
   .field-row input {
-    width: 90px !important;
-    font-size: 9px !important;
+    width: 85px !important;
+    font-size: 8.5px !important;
     text-align: right !important;
   }
 
@@ -457,33 +496,9 @@ input.ro {
     color: #ffffff !important;
   }
 
-  .formula-footer {
-    padding: 6px 10px !important;
-    margin-bottom: 6px !important;
-    font-size: 8px !important;
-    page-break-inside: avoid !important;
-  }
-
-  .formula-footer h4 {
-    font-size: 8.5px !important;
-    margin-bottom: 2px !important;
-  }
-
-  .formula-footer ul {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 2px 10px !important;
-    padding-left: 12px !important;
-  }
-
-  .formula-footer li {
-    font-size: 8px !important;
-    line-height: 1.2 !important;
-  }
-
   .app-footer {
     padding-top: 4px !important;
-    font-size: 8px !important;
+    font-size: 7.5px !important;
     page-break-inside: avoid !important;
   }
 }
