@@ -1,7 +1,7 @@
 const TOTAL_MEMBERS = 20;
-const STORAGE_KEY = "shg_calculator_data_v14";
+const STORAGE_KEY = "shg_calculator_data_v16";
 
-// உங்கள் நோட்டுப் புத்தகத்தின் சரியான அசல் தரவுகள்
+// 12 உறுப்பினர்களின் 100% சரியான நோட்டுப் புத்தகத் தரவுகள்
 const bookData = [
   { name: "திலகவதி", c2: 5600, c3: 200, c4: 5800, c5: 28500, c6: 28500, c7: 12000, c8: 0, c9: 12000, c10: 3460, c11: 0, c12: 3760 },
   { name: "அன்பழகி", c2: 5600, c3: 200, c4: 5800, c5: 18000, c6: 3500, c7: 0, c8: 1000, c9: 7500, c10: 1080, c11: 160, c12: 1160 },
@@ -28,7 +28,6 @@ function createRows() {
 
   for (let i = 0; i < TOTAL_MEMBERS; i++) {
     const tr = document.createElement("tr");
-    // readonly நீக்கப்பட்டு சாதாரண எடிட் செய்யக்கூடிய input-ஆக மாற்றப்பட்டுள்ளது
     tr.innerHTML = `
       <td>${i + 1}</td>
       <td><input type="text" class="text-left" placeholder="பெயர் ${i + 1}" id="name_${i}" oninput="autoSave()" /></td>
@@ -48,7 +47,6 @@ function createRows() {
   }
 }
 
-// பயனர் எண்களை உள்ளிடும்போது மட்டும் தானாக நிரப்பும் (பயனர் சுயமாக மாற்றியிருந்தால் அதை அழிக்காது)
 function calculateRow(i) {
   const c2 = numVal(`c2_${i}`);
   const c3 = numVal(`c3_${i}`);
@@ -62,20 +60,9 @@ function calculateRow(i) {
   const el9 = document.getElementById(`c9_${i}`);
   const el12 = document.getElementById(`c12_${i}`);
 
-  // 4 = 2 + 3 (காலியாக இருந்தால் மட்டுமே தானாகக் கணக்கிடும்)
-  if (!el4.dataset.manual) {
-    el4.value = (c2 || c3) ? (c2 + c3) : "";
-  }
-
-  // 9 = (5 + 7) - 6
-  if (!el9.dataset.manual) {
-    el9.value = (c5 || c7 || c6) ? Math.max(0, (c5 + c7) - c6) : "";
-  }
-
-  // 12 = 3 + 8 + 11
-  if (!el12.dataset.manual) {
-    el12.value = (c3 || c8 || c11) ? (c3 + c8 + c11) : "";
-  }
+  if (el4 && el4.value === "") el4.value = (c2 || c3) ? (c2 + c3) : "";
+  if (el9 && el9.value === "") el9.value = (c5 || c7 || c6) ? Math.max(0, (c5 + c7) - c6) : "";
+  if (el12 && el12.value === "") el12.value = (c3 || c8 || c11) ? (c3 + c8 + c11) : "";
 }
 
 function calculateAll() {
@@ -95,13 +82,13 @@ function calculateAll() {
     t12 += numVal(`c12_${i}`);
   }
 
-  // Footer Totals
+  // அட்டவணை கூட்டுத்தொகைகள் (Footer)
   setText("tot_2", t2); setText("tot_3", t3); setText("tot_4", t4);
   setText("tot_5", t5); setText("tot_6", t6); setText("tot_7", t7);
   setText("tot_8", t8); setText("tot_9", t9); setText("tot_10", t10);
   setText("tot_11", t11); setText("tot_12", t12);
 
-  // சுருக்கக் கட்டக் கணக்கீடுகள்
+  // சுருக்கக் கட்டத் தொகைகள்
   const bankInt = numVal("rec_bank_int");
   const otherInc = numVal("rec_other");
   const expense = numVal("rec_expense");
@@ -119,7 +106,7 @@ function calculateAll() {
   setField("rec_loan_given", loanGiven);
   setField("rec_right_total", loanGiven + expense + passbook);
 
-  // வங்கியில் செலுத்தியது = 3 + 8 + 11
+  // வங்கியில் செலுத்தியது: இம்மாத சேமிப்பு + கடன் அசல் தவணை + வட்டி (3+8+11 = ₹11,710)
   const actualDeposit = t3 + t8 + t11;
   setField("rec_bank_deposit", actualDeposit);
 }
@@ -158,13 +145,13 @@ function loadBookData() {
   document.getElementById("entry_date").value = "2026-03-10";
   document.getElementById("entry_month").value = "மார்ச் 2026";
   document.getElementById("rec_bank_int").value = 4300;
-  document.getElementById("rec_other").value = 0;
+  document.getElementById("rec_other").value = 0; // இதர வரவுகள் பூஜ்ஜியமாக அமைக்கப்பட்டது
   document.getElementById("rec_expense").value = 33582;
   document.getElementById("rec_passbook").value = 134;
 
   calculateAll();
   autoSave();
-  updateStatus("தரவுகள் முழுமையாக ஏற்றப்பட்டன ✓");
+  updateStatus("அசல் நோட்டுப் புத்தகத் தரவுகள் ஏற்றப்பட்டன ✓");
 }
 
 function autoSave() {
@@ -236,7 +223,7 @@ function loadSavedData() {
 
     if (store.summary) {
       document.getElementById("rec_bank_int").value = store.summary.bankInt || "";
-      document.getElementById("rec_other").value = store.summary.other || "";
+      document.getElementById("rec_other").value = store.summary.other !== undefined ? store.summary.other : 0;
       document.getElementById("rec_expense").value = store.summary.expense || "";
       document.getElementById("rec_passbook").value = store.summary.passbook || "";
     }
@@ -255,12 +242,12 @@ function numVal(id) {
 
 function setField(id, val) {
   const el = document.getElementById(id);
-  if (el) el.value = val ? Number(val).toLocaleString("en-IN") : "0";
+  if (el) el.value = (val !== undefined && val !== null && val !== "") ? Number(val).toLocaleString("en-IN") : "0";
 }
 
 function setText(id, val) {
   const el = document.getElementById(id);
-  if (el) el.innerText = val ? Number(val).toLocaleString("en-IN") : "0";
+  if (el) el.innerText = (val !== undefined && val !== null && val !== "") ? Number(val).toLocaleString("en-IN") : "0";
 }
 
 function manualSave() {
@@ -275,7 +262,7 @@ function clearData() {
     document.getElementById("entry_date").value = "";
     document.getElementById("entry_month").value = "";
     document.getElementById("rec_bank_int").value = "";
-    document.getElementById("rec_other").value = "";
+    document.getElementById("rec_other").value = "0";
     document.getElementById("rec_expense").value = "";
     document.getElementById("rec_passbook").value = "";
     calculateAll();
