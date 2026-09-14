@@ -1,91 +1,142 @@
 <!DOCTYPE html>
 <html lang="ta">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="SHG Data Entry & Loan Calculator - உறுப்பினர் சேமிப்பு, கடன், தவணை, வட்டி மற்றும் மொத்த கணக்குகளை எளிதாக கணக்கிடும் இலவச online calculator.">
-<meta name="robots" content="index, follow">
-<meta name="author" content="Kalaikannan - KK Moments Studio">
-<link rel="canonical" href="https://shg-data-entry-calculator-ob4fb6ac1-kk1996.vercel.app/">
-<title>SHG Data Entry & Calculator</title>
-<link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHG Data Entry & Calculator</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header>
-<h1>சுய உதவிக் குழு - Data Entry & Calculator</h1>
-<p>20 உறுப்பினர்கள்</p>
-</header>
+  <div class="page-container">
+    <header class="app-header">
+      <h2>சுய உதவிக் குழு மாதாந்திர கணக்கீட்டுப் படிவம்</h2>
+      <p id="statusMsg">டேட்டா தயாராக உள்ளது</p>
+    </header>
 
-<section class="buttons">
-<button onclick="saveData()">💾 Save</button>
-<button onclick="loadData()">↻ Load</button>
-<button onclick="window.print()">🖨️ Print</button>
-<button class="danger" onclick="clearData()">Clear</button>
-</section>
+    <div class="table-wrapper">
+      <table id="mainTable">
+        <thead>
+          <tr>
+            <th>வ.எண்</th>
+            <th>உறுப்பினர் பெயர் (1)</th>
+            <th>முந்தைய சேமிப்பு (2)</th>
+            <th>இம்மாத சேமிப்பு (3)</th>
+            <th>மொத்த சேமிப்பு (4)</th>
+            <th>இதுவரை கடன் (5)</th>
+            <th>செலுத்திய தவணை (6)</th>
+            <th>புதிய கடன் (7)</th>
+            <th>இம்மாத தவணை (8)</th>
+            <th>கடன் பாக்கி (9)</th>
+            <th>வட்டி பாக்கி (10)</th>
+            <th>இம்மாத வட்டி (11)</th>
+            <th>இம்மாத வரவு (12)</th>
+          </tr>
+        </thead>
+        <tbody id="memberList"></tbody>
+        <tfoot>
+          <tr class="total-row">
+            <td colspan="2">மொத்தம் :</td>
+            <td id="tot_2">0</td>
+            <td id="tot_3">0</td>
+            <td id="tot_4">0</td>
+            <td id="tot_5">0</td>
+            <td id="tot_6">0</td>
+            <td id="tot_7">0</td>
+            <td id="tot_8">0</td>
+            <td id="tot_9">0</td>
+            <td id="tot_10">0</td>
+            <td id="tot_11">0</td>
+            <td id="tot_12">0</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
 
-<section class="table-box">
-<table id="shgTable">
-<thead><tr>
-<th>#</th><th>உறுப்பினர் பெயர்</th><th>இதுவரை<br>வரவு</th><th>இம்மாதம்<br>வரவு</th>
-<th>மொத்தம்<br>சேமிப்பு</th><th>பெற்றுள்ள<br>கடன்</th><th>செலுத்திய<br>தவணை</th>
-<th>பெற்ற<br>கடன்</th><th>இம்மாதம்<br>தவணை</th><th>கடன்<br>பாக்கி</th>
-<th>வட்டி<br>வரவு</th><th>இம்மாதம்<br>வட்டி</th><th>மொத்த<br>வரவு</th>
-</tr></thead>
-<tbody id="memberRows"></tbody>
-<tfoot><tr>
-<th colspan="2">மொத்தம்</th>
-<th id="total2">0</th><th id="total3">0</th><th id="total4">0</th>
-<th id="total5">0</th><th id="total6">0</th><th id="total7">0</th>
-<th id="total8">0</th><th id="total9">0</th><th id="total10">0</th>
-<th id="total11">0</th><th id="total12">0</th>
-</tr></tfoot>
-</table>
-</section>
+    <div class="reconciliation-container">
+      <div class="box">
+        <h3>வரவு விவரங்கள்</h3>
+        <div class="field-row"><label>மொத்த சேமிப்பு (4):</label><input type="text" id="rec_savings" readonly /></div>
+        <div class="field-row"><label>இதுவரை கடன் (5):</label><input type="text" id="rec_loan" readonly /></div>
+        <div class="field-row"><label>தவணைகள் வரவு (6+8):</label><input type="text" id="rec_repaid" readonly /></div>
+        <div class="field-row"><label>வட்டி வரவு (11):</label><input type="text" id="rec_interest" readonly /></div>
+        <div class="field-row"><label>வங்கியின் வட்டி வரவு (பாஸ்புக்):</label><input type="number" id="rec_bank_int" placeholder="0" oninput="calculateAll(); autoSave();" /></div>
+        <div class="field-row"><label>இதர வரவுகள்:</label><input type="number" id="rec_other" placeholder="0" oninput="calculateAll(); autoSave();" /></div>
+        <div class="field-row highlight"><label>மொத்தம்:</label><input type="text" id="rec_left_total" readonly /></div>
+      </div>
 
-<section class="seo-info">
-<h2>SHG Data Entry & Loan Calculator</h2>
-<p>சுய உதவிக் குழு உறுப்பினர்களின் சேமிப்பு, கடன், தவணை, வட்டி மற்றும் மொத்த வரவு ஆகியவற்றை எளிதாக பதிவு செய்து கணக்கிட இந்த calculator பயன்படுகிறது.</p>
-<h3>Calculator Features</h3>
-<ul>
-<li>20 உறுப்பினர்களுக்கான data entry</li>
-<li>சேமிப்பு மற்றும் கடன் கணக்கீடு</li>
-<li>தவணை மற்றும் வட்டி கணக்கீடு</li>
-<li>Automatic totals</li>
-<li>Save, Load மற்றும் Print வசதி</li>
-</ul>
-</section>
+      <div class="box">
+        <h3>கடன் & செலவு விவரங்கள்</h3>
+        <div class="field-row"><label>கடன் கொடுத்துள்ளது (5+7):</label><input type="text" id="rec_loan_given" readonly /></div>
+        <div class="field-row"><label>குழு செலவு:</label><input type="number" id="rec_expense" placeholder="0" oninput="calculateAll(); autoSave();" /></div>
+        <div class="field-row"><label>பாஸ்புக்கில் நிலுவை:</label><input type="number" id="rec_passbook" placeholder="0" oninput="calculateAll(); autoSave();" /></div>
+        <div class="field-row highlight"><label>மொத்தம்:</label><input type="text" id="rec_right_total" readonly /></div>
+        <div class="field-row bank"><label>வங்கியில் செலுத்தியது (3+8+11):</label><input type="text" id="rec_bank_deposit" readonly /></div>
+      </div>
+    </div>
 
-<!-- Google AdSense Auto Ads: replace YOUR_PUBLISHER_ID with your real ca-pub-XXXXXXXXXXXXXXX after AdSense approval. -->
-<!--
-<script async
-  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
-  crossorigin="anonymous"></script>
--->
+    <div class="formula-footer">
+      <h4>ஃபார்முலா குறிப்புகள் (Calculation Rules):</h4>
+      <ul>
+        <li><strong>மொத்த சேமிப்பு (4):</strong> நெடுவரிசை 2 + நெடுவரிசை 3</li>
+        <li><strong>கடன் பாக்கி (9):</strong> (நெடுவரிசை 5 + நெடுவரிசை 7) - (நெடுவரிசை 6 + நெடுவரிசை 8)</li>
+        <li><strong>இம்மாத வட்டி (11):</strong> கடன் பாக்கி (9) × 1%</li>
+        <li><strong>இம்மாத வரவு (12):</strong> நெடுவரிசை 3 + நெடுவரிசை 8 + நெடுவரிசை 11</li>
+        <li><strong>தவணைகள் வரவு (6+8):</strong> மொத்தம் (6) + மொத்தம் (8)</li>
+        <li><strong>கடன் கொடுத்துள்ளது (5+7):</strong> மொத்தம் (5) + மொத்தம் (7)</li>
+        <li><strong>வங்கியில் செலுத்தியது:</strong> மொத்தம் (3) + மொத்தம் (8) + மொத்தம் (11)</li>
+      </ul>
+    </div>
 
-<section class="result">
-<h2>மொத்த முடிவு</h2>
-<div id="summary"></div>
-</section>
+    <div class="btn-group">
+      <button class="btn btn-save" onclick="manualSave()">Save</button>
+      <button class="btn btn-export" onclick="exportToCSV()">Excel (CSV) Export</button>
+      <button class="btn btn-rollover" onclick="prepareNextMonth()">அடுத்த மாதத்திற்கு நகர்த்து</button>
+      <button class="btn btn-reset" onclick="clearData()">Reset</button>
+      <button class="btn btn-print" onclick="window.print()">Print / PDF</button>
+    </div>
 
-<script src="./script.js"></script>
-
-<footer class="site-footer">
-  <div class="footer-content">
-    <p><strong>Developer: Kalaikannan</strong></p>
-    <p>
-      GitHub:
-      <a href="https://github.com/prokid1996" target="_blank" rel="noopener noreferrer">prokid1996</a>
-      &nbsp;|&nbsp;
-      Instagram:
-      <a href="https://www.instagram.com/kalaikannan_1996" target="_blank" rel="noopener noreferrer">@kalaikannan_1996</a>
-      &nbsp;|&nbsp;
-      LinkedIn:
-      <a href="https://www.linkedin.com/in/kalaikannan1996" target="_blank" rel="noopener noreferrer">Kalaikannan</a>
-    </p>
-    <p class="copyright">© KK Moments Studio. All Rights Reserved.</p>
+    <footer class="app-footer">
+      <p>
+        Developer: <strong>Kalaikannan</strong> | 
+        GitHub: <a href="https://github.com/prokid1996" target="_blank" rel="noopener noreferrer">prokid1996</a> | 
+        Instagram: <a href="https://www.instagram.com/kalaikannan_1996" target="_blank" rel="noopener noreferrer">@kalaikannan_1996</a> | 
+        LinkedIn: <a href="https://www.linkedin.com/in/kalaikannan1996" target="_blank" rel="noopener noreferrer">Kalaikannan</a>
+      </p>
+      <p>
+        © KK Moments Studio. All Rights Reserved. | 
+        <a href="javascript:void(0)" onclick="openModal('privacyModal')">Privacy Policy</a> | 
+        <a href="javascript:void(0)" onclick="openModal('termsModal')">Terms of Use</a>
+      </p>
+    </footer>
   </div>
-<p><a href="./privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="./terms.html">Terms of Use</a></p>
-</footer>
 
+  <div id="privacyModal" class="modal-overlay" onclick="closeOnOverlay(event, 'privacyModal')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Privacy Policy</h3>
+        <button class="modal-close" onclick="closeModal('privacyModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>SHG Data Entry & Loan Calculator</strong> is a browser-based calculator. Data entered into the calculator is stored locally in your browser when you use the Save feature. We do not operate a server-side database for these calculator records.</p>
+        <p>If Google AdSense is enabled, Google may use cookies or similar technologies to serve and measure advertising according to Google's policies.</p>
+        <p>For questions, contact the developer through the social links provided on the main website.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="termsModal" class="modal-overlay" onclick="closeOnOverlay(event, 'termsModal')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Terms of Use</h3>
+        <button class="modal-close" onclick="closeModal('termsModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>This calculator is provided for general calculation and record-entry assistance. Verify important financial records independently before relying on them.</p>
+        <p>The service is provided as-is and may be updated or changed.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
