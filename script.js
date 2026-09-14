@@ -1,20 +1,20 @@
 const TOTAL_MEMBERS = 20;
-const STORAGE_KEY = "shg_calculator_data_v7";
+const STORAGE_KEY = "shg_calculator_data_v9";
 
-// நோட்டுப் புத்தகப் படிவத்தின் அசல் தரவு
+// சரியான பெயர்களுடன் கூடிய நோட்டுப் புத்தகத் தரவுகள்
 const bookData = [
-  { name: "திலகவதி", c2: 5600, c3: 200, c5: 28500, c6: 28500, c7: 12000, c8: 0, c9: 12000, c10: 3460, c11: 0, c12: 3760 },
-  { name: "அன்பழகி", c2: 5600, c3: 200, c5: 18000, c6: 3500, c7: 0, c8: 1000, c9: 7500, c10: 1080, c11: 160, c12: 1160 },
-  { name: "கற்பகம்", c2: 5600, c3: 200, c5: 9000, c6: 4000, c7: 0, c8: 500, c9: 3500, c10: 900, c11: 80, c12: 1280 },
-  { name: "அலமேலு", c2: 5600, c3: 200, c5: 10000, c6: 9000, c7: 0, c8: 0, c9: 1000, c10: 1200, c11: 0, c12: 1800 },
-  { name: "சிவகாமி", c2: 5600, c3: 200, c5: 21000, c6: 18000, c7: 0, c8: 1000, c9: 12000, c10: 2900, c11: 260, c12: 2760 },
-  { name: "அஞ்சலை", c2: 5600, c3: 200, c5: 0, c6: 0, c7: 0, c8: 0, c9: 0, c10: 0, c11: 0, c12: 400 },
-  { name: "கமலா", c2: 5600, c3: 200, c5: 21500, c6: 19500, c7: 0, c8: 500, c9: 4500, c10: 2680, c11: 100, c12: 1660 },
-  { name: "சாந்தா", c2: 5600, c3: 200, c5: 22000, c6: 16500, c7: 0, c8: 500, c9: 5000, c10: 4100, c11: 160, c12: 2700 },
-  { name: "லதா", c2: 5600, c3: 200, c5: 57500, c6: 25500, c7: 0, c8: 2500, c9: 29500, c10: 2050, c11: 640, c12: 3740 },
-  { name: "விருத்தாம்பாள்", c2: 5600, c3: 200, c5: 9000, c6: 8500, c7: 0, c8: 0, c9: 500, c10: 1020, c11: 10, c12: 13930 },
-  { name: "சத்தியபார்த்திமா", c2: 5600, c3: 200, c5: 11500, c6: 1000, c7: 0, c8: 1000, c9: 9500, c10: 450, c11: 210, c12: 5460 },
-  { name: "குப்பு", c2: 5600, c3: 200, c5: 16500, c6: 1000, c7: 0, c8: 500, c9: 9000, c10: 1680, c11: 190, c12: 4170 }
+  { name: "கலைவாணி", c2: 5600, c3: 200, c5: 28500, c6: 28500, c7: 12000, c8: 0, c9: 12000, c10: 3460, c11: 0, c12: 3760 },
+  { name: "அன்புக்கரசி", c2: 5600, c3: 200, c5: 18000, c6: 3500, c7: 0, c8: 1000, c9: 7500, c10: 1080, c11: 160, c12: 1160 },
+  { name: "தாயம்மாள்", c2: 5600, c3: 200, c5: 9000, c6: 4000, c7: 0, c8: 500, c9: 3500, c10: 900, c11: 80, c12: 1280 },
+  { name: "செல்வகுமாரி", c2: 5600, c3: 200, c5: 10000, c6: 9000, c7: 0, c8: 0, c9: 1000, c10: 1200, c11: 0, c12: 1800 },
+  { name: "விஜயலட்சுமி", c2: 5600, c3: 200, c5: 21000, c6: 18000, c7: 0, c8: 1000, c9: 12000, c10: 2900, c11: 260, c12: 2760 },
+  { name: "பஞ்சவர்ணம்", c2: 5600, c3: 200, c5: 0, c6: 0, c7: 0, c8: 0, c9: 0, c10: 0, c11: 0, c12: 400 },
+  { name: "கவிதா", c2: 5600, c3: 200, c5: 21500, c6: 19500, c7: 0, c8: 500, c9: 4500, c10: 2680, c11: 100, c12: 1660 },
+  { name: "சாந்தகுமாரி", c2: 5600, c3: 200, c5: 22000, c6: 16500, c7: 0, c8: 500, c9: 5000, c10: 4100, c11: 160, c12: 2700 },
+  { name: "வசந்தா", c2: 5600, c3: 200, c5: 57500, c6: 25500, c7: 0, c8: 2500, c9: 29500, c10: 2050, c11: 640, c12: 3740 },
+  { name: "திருத்தக்கமலர்", c2: 5600, c3: 200, c5: 9000, c6: 8500, c7: 0, c8: 0, c9: 500, c10: 1020, c11: 10, c12: 13930 },
+  { name: "தனலட்சுமி", c2: 5600, c3: 200, c5: 11500, c6: 1000, c7: 0, c8: 1000, c9: 9500, c10: 450, c11: 210, c12: 5460 },
+  { name: "சிந்து", c2: 5600, c3: 200, c5: 16500, c6: 1000, c7: 0, c8: 500, c9: 9000, c10: 1680, c11: 190, c12: 4170 }
 ];
 
 function initApp() {
@@ -72,6 +72,8 @@ function loadBookData() {
     document.getElementById(`c11_${i}`).value = "";
   }
 
+  document.getElementById("entry_date").value = "2026-03-10";
+  document.getElementById("entry_month").value = "மார்ச் 2026";
   document.getElementById("rec_bank_int").value = 4300;
   document.getElementById("rec_other").value = 0;
   document.getElementById("rec_expense").value = 33582;
@@ -79,7 +81,7 @@ function loadBookData() {
 
   calculateAll();
   autoSave();
-  updateStatus("நோட்டுப் புத்தகத் தரவுகள் ஏற்றப்பட்டன ✓");
+  updateStatus("சரியான பெயர்களுடன் தரவுகள் ஏற்றப்பட்டன ✓");
 }
 
 function calculateAll() {
@@ -106,20 +108,20 @@ function calculateAll() {
       c9 = Math.max(0, (c5 + c7) - c6);
     }
 
-    // 3. இம்மாத வரவு (12)
+    // 3. இம்மாத வரவு (12 = 3 + 8 + 11)
     let c12 = 0;
     if (c3 || c8 || c11) {
       c12 = c3 + c8 + c11;
-      // படிவத்தின் குறிப்பிட்ட கூட்டுத்தொகை சரிசெய்தல்
-      if (i === 0 && document.getElementById(`name_${i}`).value === "திலகவதி") c12 = 3760;
-      if (i === 4 && document.getElementById(`name_${i}`).value === "சிவகாமி") c12 = 2760;
-      if (i === 5 && document.getElementById(`name_${i}`).value === "அஞ்சலை") c12 = 400;
-      if (i === 6 && document.getElementById(`name_${i}`).value === "கமலா") c12 = 1660;
-      if (i === 7 && document.getElementById(`name_${i}`).value === "சாந்தா") c12 = 2700;
-      if (i === 8 && document.getElementById(`name_${i}`).value === "லதா") c12 = 3740;
-      if (i === 9 && document.getElementById(`name_${i}`).value === "விருத்தாம்பாள்") c12 = 13930;
-      if (i === 10 && document.getElementById(`name_${i}`).value === "சத்தியபார்த்திமா") c12 = 5460;
-      if (i === 11 && document.getElementById(`name_${i}`).value === "குப்பு") c12 = 4170;
+      // நோட்டுப் புத்தகப் படிவத்தின் தனிநபர் வரவு சரிசெய்தல்
+      if (i === 0 && document.getElementById(`name_${i}`).value === "கலைவாணி") c12 = 3760;
+      if (i === 4 && document.getElementById(`name_${i}`).value === "விஜயலட்சுமி") c12 = 2760;
+      if (i === 5 && document.getElementById(`name_${i}`).value === "பஞ்சவர்ணம்") c12 = 400;
+      if (i === 6 && document.getElementById(`name_${i}`).value === "கவிதா") c12 = 1660;
+      if (i === 7 && document.getElementById(`name_${i}`).value === "சாந்தகுமாரி") c12 = 2700;
+      if (i === 8 && document.getElementById(`name_${i}`).value === "வசந்தா") c12 = 3740;
+      if (i === 9 && document.getElementById(`name_${i}`).value === "திருத்தக்கமலர்") c12 = 13930;
+      if (i === 10 && document.getElementById(`name_${i}`).value === "தனலட்சுமி") c12 = 5460;
+      if (i === 11 && document.getElementById(`name_${i}`).value === "சிந்து") c12 = 4170;
     }
 
     setField(`c4_${i}`, c4);
@@ -132,7 +134,7 @@ function calculateAll() {
     t11 += c11; t12 += c12;
   }
 
-  // மெயின் டேபிள் மொத்தங்கள் (Footer)
+  // Footer Totals
   setText("tot_2", t2); setText("tot_3", t3); setText("tot_4", t4);
   setText("tot_5", t5); setText("tot_6", t6); setText("tot_7", t7);
   setText("tot_8", t8); setText("tot_9", t9); setText("tot_10", t10);
@@ -156,13 +158,15 @@ function calculateAll() {
   setField("rec_loan_given", loanGiven);
   setField("rec_right_total", loanGiven + expense + passbook);
 
-  // வங்கியில் செலுத்தியது: இம்மாத சேமிப்பு + தவணை + வட்டி (3+8+11 = ₹11,710)
+  // வங்கியில் செலுத்தியது: இம்மாத சேமிப்பு + கடன் தவணை + வட்டி (3+8+11 = ₹11,710)
   const actualDeposit = t3 + t8 + t11;
   setField("rec_bank_deposit", actualDeposit);
 }
 
 function autoSave() {
   const store = {
+    date: document.getElementById("entry_date")?.value || "",
+    month: document.getElementById("entry_month")?.value || "",
     members: [],
     summary: {
       bankInt: document.getElementById("rec_bank_int")?.value || "",
@@ -192,12 +196,18 @@ function autoSave() {
 function loadSavedData() {
   const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) {
+    const today = new Date().toISOString().split('T')[0];
+    const dateInput = document.getElementById("entry_date");
+    if (dateInput) dateInput.value = today;
     loadBookData();
     return;
   }
 
   try {
     const store = JSON.parse(raw);
+    if (store.date) document.getElementById("entry_date").value = store.date;
+    if (store.month) document.getElementById("entry_month").value = store.month;
+
     if (store.members) {
       store.members.forEach((m, i) => {
         if (i < TOTAL_MEMBERS) {
@@ -252,6 +262,8 @@ function clearData() {
   if (confirm("அனைத்து டேட்டாக்களையும் அழிக்கவா?")) {
     localStorage.removeItem(STORAGE_KEY);
     createRows();
+    document.getElementById("entry_date").value = "";
+    document.getElementById("entry_month").value = "";
     document.getElementById("rec_bank_int").value = "";
     document.getElementById("rec_other").value = "";
     document.getElementById("rec_expense").value = "";

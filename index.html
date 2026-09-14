@@ -14,6 +14,18 @@
       <p id="statusMsg">டேட்டா தயாராக உள்ளது</p>
     </header>
 
+    <!-- தேதி மற்றும் மாதம் உள்ளீடு -->
+    <div class="date-month-container">
+      <div class="date-field">
+        <label>தேதி (Date):</label>
+        <input type="date" id="entry_date" oninput="autoSave()" />
+      </div>
+      <div class="date-field">
+        <label>மாதம் (Month):</label>
+        <input type="text" id="entry_month" placeholder="மார்ச் 2026" oninput="autoSave()" />
+      </div>
+    </div>
+
     <!-- மெயின் டேபிள்: 1 முதல் 12 தலைப்புகள் -->
     <div class="table-wrapper">
       <table id="mainTable">
@@ -84,7 +96,7 @@
         <li><strong>மொத்த சேமிப்பு (4):</strong> நெடுவரிசை 2 + நெடுவரிசை 3</li>
         <li><strong>கடன் பாக்கி (9):</strong> (நெடுவரிசை 5 + நெடுவரிசை 7) - நெடுவரிசை 6</li>
         <li><strong>இம்மாத வரவு (12):</strong> நெடுவரிசை 3 + நெடுவரிசை 8 + நெடுவரிசை 11</li>
-        <li><strong>தவணைகள் வரவு (6+8):</strong> படிவத்தின்படி இதுவரை கட்டிய தவணை மொத்தம் (6)</li>
+        <li><strong>தவணைகள் வரவு:</strong> படிவத்தின்படி இதுவரை கட்டிய தவணை மொத்தம் (6)</li>
         <li><strong>கடன் கொடுத்துள்ளது (5+7):</strong> மொத்தம் (5) + மொத்தம் (7)</li>
         <li><strong>வங்கியில் செலுத்தியது (3+8+11):</strong> ரொக்க வசூல் வரவு = சேமிப்பு + கடன் அசல் + வட்டி</li>
       </ul>

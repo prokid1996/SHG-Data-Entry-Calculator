@@ -22,7 +22,7 @@ body {
 
 .app-header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .app-header h2 {
@@ -41,6 +41,40 @@ body {
   color: #16a34a;
   margin-top: 4px;
   font-weight: bold;
+}
+
+/* தேதி மற்றும் மாதம் பெட்டி */
+.date-month-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin-bottom: 15px;
+  padding: 8px 12px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.date-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.date-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.date-field input {
+  width: 140px;
+  padding: 4px 8px;
+  font-size: 13px;
+  text-align: left;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background: #ffffff;
 }
 
 /* மொபைல் ஸ்க்ரோலிங் பிக்ஸ் */
@@ -99,6 +133,7 @@ input.ro {
   font-weight: bold;
 }
 
+/* சுருக்கக் கட்டங்கள் */
 .reconciliation-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -213,7 +248,7 @@ input.ro {
   text-decoration: underline;
 }
 
-/* Modal Popups */
+/* மாடல் பாப்அப்கள் */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -283,7 +318,9 @@ input.ro {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* A4 Landscape Print */
+/* =========================================================
+   A4 LANDSCAPE PRINT & PDF STYLES
+   ========================================================= */
 @page {
   size: A4 landscape;
   margin: 6mm 8mm;
@@ -312,6 +349,26 @@ input.ro {
     margin: 0 !important;
     box-shadow: none !important;
     border: none !important;
+  }
+
+  .date-month-container {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin-bottom: 6px !important;
+  }
+
+  .date-field label {
+    font-size: 8.5px !important;
+  }
+
+  .date-field input {
+    border: none !important;
+    border-bottom: 0.5px solid #000 !important;
+    font-size: 8.5px !important;
+    width: 90px !important;
+    padding: 0 !important;
+    background: transparent !important;
   }
 
   .table-wrapper {
