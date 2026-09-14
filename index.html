@@ -9,10 +9,12 @@
 <body>
   <div class="page-container">
     <header class="app-header">
-      <h2>சுய உதவிக் குழு மாதாந்திர கணக்கீட்டுப் படிவம்</h2>
+      <h2>புதுச்சேரி மாநில ஊரக வாழ்வாதார இயக்கம் (PSRLM)</h2>
+      <p class="subtitle">சுய உதவிக் குழுவின் மாதாந்திர நிதிநிலைப் படிவம் & கால்குலேட்டர்</p>
       <p id="statusMsg">டேட்டா தயாராக உள்ளது</p>
     </header>
 
+    <!-- மெயின் டேபிள்: 1 முதல் 12 தலைப்புகள் -->
     <div class="table-wrapper">
       <table id="mainTable">
         <thead>
@@ -52,13 +54,14 @@
       </table>
     </div>
 
+    <!-- சுருக்கக் கட்டங்கள் -->
     <div class="reconciliation-container">
       <div class="box">
         <h3>வரவு விவரங்கள்</h3>
         <div class="field-row"><label>மொத்த சேமிப்பு (4):</label><input type="text" id="rec_savings" readonly /></div>
         <div class="field-row"><label>இதுவரை கடன் (5):</label><input type="text" id="rec_loan" readonly /></div>
         <div class="field-row"><label>தவணைகள் வரவு (6+8):</label><input type="text" id="rec_repaid" readonly /></div>
-        <div class="field-row"><label>வட்டி வரவு (11):</label><input type="text" id="rec_interest" readonly /></div>
+        <div class="field-row"><label>வட்டி வரவு (12/11):</label><input type="text" id="rec_interest" readonly /></div>
         <div class="field-row"><label>வங்கியின் வட்டி வரவு (பாஸ்புக்):</label><input type="number" id="rec_bank_int" placeholder="0" oninput="calculateAll(); autoSave();" /></div>
         <div class="field-row"><label>இதர வரவுகள்:</label><input type="number" id="rec_other" placeholder="0" oninput="calculateAll(); autoSave();" /></div>
         <div class="field-row highlight"><label>மொத்தம்:</label><input type="text" id="rec_left_total" readonly /></div>
@@ -74,27 +77,28 @@
       </div>
     </div>
 
+    <!-- ஃபார்முலா குறிப்புகள் -->
     <div class="formula-footer">
       <h4>ஃபார்முலா குறிப்புகள் (Calculation Rules):</h4>
       <ul>
         <li><strong>மொத்த சேமிப்பு (4):</strong> நெடுவரிசை 2 + நெடுவரிசை 3</li>
-        <li><strong>கடன் பாக்கி (9):</strong> (நெடுவரிசை 5 + நெடுவரிசை 7) - (நெடுவரிசை 6 + நெடுவரிசை 8)</li>
-        <li><strong>இம்மாத வட்டி (11):</strong> கடன் பாக்கி (9) × 1%</li>
+        <li><strong>கடன் பாக்கி (9):</strong> (நெடுவரிசை 5 + நெடுவரிசை 7) - நெடுவரிசை 6</li>
         <li><strong>இம்மாத வரவு (12):</strong> நெடுவரிசை 3 + நெடுவரிசை 8 + நெடுவரிசை 11</li>
-        <li><strong>தவணைகள் வரவு (6+8):</strong> மொத்தம் (6) + மொத்தம் (8)</li>
+        <li><strong>தவணைகள் வரவு (6+8):</strong> படிவத்தின்படி இதுவரை கட்டிய தவணை மொத்தம் (6)</li>
         <li><strong>கடன் கொடுத்துள்ளது (5+7):</strong> மொத்தம் (5) + மொத்தம் (7)</li>
-        <li><strong>வங்கியில் செலுத்தியது:</strong> மொத்தம் (3) + மொத்தம் (8) + மொத்தம் (11)</li>
+        <li><strong>வங்கியில் செலுத்தியது (3+8+11):</strong> ரொக்க வசூல் வரவு = சேமிப்பு + கடன் அசல் + வட்டி</li>
       </ul>
     </div>
 
+    <!-- பொத்தான்கள் -->
     <div class="btn-group">
-      <button class="btn btn-save" onclick="manualSave()">Save</button>
-      <button class="btn btn-export" onclick="exportToCSV()">Excel (CSV) Export</button>
-      <button class="btn btn-rollover" onclick="prepareNextMonth()">அடுத்த மாதத்திற்கு நகர்த்து</button>
-      <button class="btn btn-reset" onclick="clearData()">Reset</button>
-      <button class="btn btn-print" onclick="window.print()">Print / PDF</button>
+      <button class="btn btn-rollover" onclick="loadBookData()">படிவத் தரவை ஏற்று (Load Book Data)</button>
+      <button class="btn btn-save" onclick="manualSave()">Save Data</button>
+      <button class="btn btn-reset" onclick="clearData()">Clear / Reset</button>
+      <button class="btn btn-print" onclick="window.print()">Print / Save PDF</button>
     </div>
 
+    <!-- Footer & Credits -->
     <footer class="app-footer">
       <p>
         Developer: <strong>Kalaikannan</strong> | 
@@ -110,6 +114,7 @@
     </footer>
   </div>
 
+  <!-- Privacy Policy Modal -->
   <div id="privacyModal" class="modal-overlay" onclick="closeOnOverlay(event, 'privacyModal')">
     <div class="modal-card">
       <div class="modal-header">
@@ -124,6 +129,7 @@
     </div>
   </div>
 
+  <!-- Terms of Use Modal -->
   <div id="termsModal" class="modal-overlay" onclick="closeOnOverlay(event, 'termsModal')">
     <div class="modal-card">
       <div class="modal-header">
