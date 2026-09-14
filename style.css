@@ -43,7 +43,6 @@ body {
   font-weight: bold;
 }
 
-/* தேதி மற்றும் மாதம் பெட்டி */
 .date-month-container {
   display: flex;
   justify-content: flex-end;
@@ -77,7 +76,6 @@ body {
   background: #ffffff;
 }
 
-/* மொபைல் ஸ்க்ரோலிங் பிக்ஸ் */
 .table-wrapper {
   width: 100%;
   overflow-x: auto !important;
@@ -91,29 +89,35 @@ table {
   width: 100%;
   border-collapse: collapse;
   min-width: 1250px !important;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 th, td {
   border: 1px solid #cbd5e1;
-  padding: 6px 4px;
+  padding: 5px 3px;
   text-align: center;
-  white-space: nowrap;
+  vertical-align: middle;
 }
 
 th {
   background-color: #f1f5f9;
-  color: #334155;
-  font-weight: 600;
+  color: #1e293b;
+  font-weight: bold;
+  line-height: 1.25;
+}
+
+th.col-group {
+  background-color: #e2e8f0;
+  font-size: 13px;
 }
 
 input {
   width: 90px;
-  padding: 5px 3px;
+  padding: 4px 2px;
   border: 1px solid #cbd5e1;
   border-radius: 3px;
   text-align: right;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 input.text-left {
@@ -133,7 +137,6 @@ input.ro {
   font-weight: bold;
 }
 
-/* சுருக்கக் கட்டங்கள் */
 .reconciliation-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -248,7 +251,6 @@ input.ro {
   text-decoration: underline;
 }
 
-/* மாடல் பாப்அப்கள் */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -318,12 +320,9 @@ input.ro {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* =========================================================
-   A4 LANDSCAPE PRINT & PDF HEADERS REPAIR STYLES
-   ========================================================= */
 @page {
   size: A4 landscape;
-  margin: 4mm 6mm;
+  margin: 4mm 5mm;
 }
 
 @media print {
@@ -336,7 +335,6 @@ input.ro {
     font-size: 8px !important;
   }
 
-  /* பிரிண்டில் தேவையில்லாத பட்டன்கள் மற்றும் ஃபார்முலா குறிப்புகள் முழுமையாக மறைக்கப்படும் */
   .btn-group,
   #statusMsg,
   .modal-overlay,
@@ -354,24 +352,24 @@ input.ro {
   }
 
   .app-header {
-    margin-bottom: 3px !important;
+    margin-bottom: 2px !important;
   }
 
   .app-header h2 {
-    font-size: 12px !important;
+    font-size: 11px !important;
     margin: 0 !important;
   }
 
   .subtitle {
-    font-size: 8.5px !important;
-    margin: 1px 0 3px 0 !important;
+    font-size: 8px !important;
+    margin: 1px 0 2px 0 !important;
   }
 
   .date-month-container {
     background: transparent !important;
     border: none !important;
     padding: 0 !important;
-    margin-bottom: 4px !important;
+    margin-bottom: 3px !important;
   }
 
   .date-field label {
@@ -381,15 +379,15 @@ input.ro {
   .date-field input {
     border: none !important;
     border-bottom: 0.5px solid #000 !important;
-    font-size: 8.5px !important;
-    width: 85px !important;
+    font-size: 8px !important;
+    width: 80px !important;
     padding: 0 !important;
     background: transparent !important;
   }
 
   .table-wrapper {
     overflow: visible !important;
-    margin-bottom: 6px !important;
+    margin-bottom: 4px !important;
     border: none !important;
   }
 
@@ -400,44 +398,41 @@ input.ro {
     table-layout: fixed !important;
   }
 
+  th, td {
+    border: 0.6px solid #1e293b !important;
+    padding: 1.5px 1px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    font-size: 7.2px !important;
+  }
+
   th {
-    background-color: #f1f5f9 !important;
+    background-color: #f8fafc !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-    padding: 3px 1px !important;
-    font-size: 7.5px !important;
-    line-height: 1.15 !important;
-    font-weight: 700 !important;
-    vertical-align: middle !important;
-    word-break: normal !important;
-    overflow-wrap: break-word !important;
+    line-height: 1.1 !important;
+    font-weight: bold !important;
+    white-space: normal !important;
   }
 
-  td {
-    padding: 1.5px 1px !important;
-    font-size: 8px !important;
-    border: 0.5px solid #475569 !important;
-  }
-
-  /* தலைப்புகள் ஒன்றன் மேல் ஒன்று படியாமல் தடுக்கும் காலம்களின் விகிதாசார அகலம் */
-  th:nth-child(1), td:nth-child(1) { width: 3.5%; }
-  th:nth-child(2), td:nth-child(2) { width: 12%; text-align: left; }
-  th:nth-child(3), td:nth-child(3) { width: 7.5%; }
-  th:nth-child(4), td:nth-child(4) { width: 7.5%; }
-  th:nth-child(5), td:nth-child(5) { width: 8%; }
-  th:nth-child(6), td:nth-child(6) { width: 8.5%; }
-  th:nth-child(7), td:nth-child(7) { width: 8.5%; }
-  th:nth-child(8), td:nth-child(8) { width: 7.5%; }
-  th:nth-child(9), td:nth-child(9) { width: 7.5%; }
-  th:nth-child(10), td:nth-child(10) { width: 8%; }
-  th:nth-child(11), td:nth-child(11) { width: 7.5%; }
-  th:nth-child(12), td:nth-child(12) { width: 7%; }
-  th:nth-child(13), td:nth-child(13) { width: 7.5%; }
+  td:nth-child(1), th.col-sno { width: 3.5%; }
+  td:nth-child(2), th.col-name { width: 11.5%; text-align: left !important; }
+  td:nth-child(3) { width: 7.5%; }
+  td:nth-child(4) { width: 7.5%; }
+  td:nth-child(5) { width: 8%; }
+  td:nth-child(6) { width: 8.5%; }
+  td:nth-child(7) { width: 8.5%; }
+  td:nth-child(8) { width: 7.5%; }
+  td:nth-child(9) { width: 7.5%; }
+  td:nth-child(10) { width: 8%; }
+  td:nth-child(11) { width: 7.5%; }
+  td:nth-child(12) { width: 7%; }
+  td:nth-child(13) { width: 8%; }
 
   input {
     border: none !important;
     background: transparent !important;
-    font-size: 8px !important;
+    font-size: 7.5px !important;
     padding: 0 !important;
     width: 100% !important;
     box-shadow: none !important;
@@ -446,22 +441,22 @@ input.ro {
   .reconciliation-container {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 8px !important;
+    gap: 6px !important;
     margin-top: 4px !important;
     margin-bottom: 4px !important;
     page-break-inside: avoid !important;
   }
 
   .box {
-    padding: 6px 8px !important;
+    padding: 4px 6px !important;
     border: 0.5px solid #64748b !important;
     background: #ffffff !important;
   }
 
   .box h3 {
-    font-size: 10px !important;
-    margin-bottom: 3px !important;
-    padding-bottom: 2px !important;
+    font-size: 9.5px !important;
+    margin-bottom: 2px !important;
+    padding-bottom: 1px !important;
   }
 
   .field-row {
@@ -469,12 +464,12 @@ input.ro {
   }
 
   .field-row label {
-    font-size: 8px !important;
+    font-size: 7.5px !important;
   }
 
   .field-row input {
-    width: 85px !important;
-    font-size: 8.5px !important;
+    width: 80px !important;
+    font-size: 8px !important;
     text-align: right !important;
   }
 
@@ -497,8 +492,8 @@ input.ro {
   }
 
   .app-footer {
-    padding-top: 4px !important;
-    font-size: 7.5px !important;
+    padding-top: 2px !important;
+    font-size: 7px !important;
     page-break-inside: avoid !important;
   }
 }

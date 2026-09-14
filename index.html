@@ -10,11 +10,10 @@
   <div class="page-container">
     <header class="app-header">
       <h2>புதுச்சேரி மாநில ஊரக வாழ்வாதார இயக்கம் (PSRLM)</h2>
-      <p class="subtitle">சுய உதவிக் குழுவின் மாதாந்திர நிதிநிலைப் படிவம் & கால்குலேட்டர்</p>
+      <p class="subtitle">சுய உதவிக் குழுவின் மாதாந்திர நிதிநிலைப் படிவம்</p>
       <p id="statusMsg">டேட்டா தயாராக உள்ளது</p>
     </header>
 
-    <!-- தேதி மற்றும் மாதம் உள்ளீடு -->
     <div class="date-month-container">
       <div class="date-field">
         <label>தேதி (Date):</label>
@@ -26,24 +25,27 @@
       </div>
     </div>
 
-    <!-- மெயின் டேபிள்: 1 முதல் 12 தலைப்புகள் -->
     <div class="table-wrapper">
       <table id="mainTable">
         <thead>
           <tr>
-            <th>வ.எண்</th>
-            <th>உறுப்பினர் பெயர் (1)</th>
-            <th>முந்தைய சேமிப்பு (2)</th>
-            <th>இம்மாத சேமிப்பு (3)</th>
-            <th>மொத்த சேமிப்பு (4)</th>
-            <th>இதுவரை கடன் (5)</th>
-            <th>செலுத்திய தவணை (6)</th>
-            <th>புதிய கடன் (7)</th>
-            <th>இம்மாத தவணை (8)</th>
-            <th>கடன் பாக்கி (9)</th>
-            <th>வட்டி பாக்கி (10)</th>
-            <th>இம்மாத வட்டி (11)</th>
-            <th>இம்மாத வரவு (12)</th>
+            <th rowspan="2" class="col-sno">எண்</th>
+            <th rowspan="2" class="col-name">உறுப்பினர் பெயர்</th>
+            <th colspan="3" class="col-group">சேமிப்பு</th>
+            <th rowspan="2" class="col-data">இது வரை<br>பெற்ற கடன்<br>தொகை<br>5</th>
+            <th rowspan="2" class="col-data">இது வரை<br>கட்டிய தவணை<br>வரவு<br>6</th>
+            <th rowspan="2" class="col-data">இம்மாதம்<br>பெற்ற கடன்<br>7</th>
+            <th rowspan="2" class="col-data">இம்மாதம்<br>கட்டிய தவணை<br>வரவு<br>8</th>
+            <th rowspan="2" class="col-data">கடன்<br>பாக்கி<br>9</th>
+            <th colspan="3" class="col-group">வட்டி வரவு</th>
+          </tr>
+          <tr>
+            <th class="col-sub">இதுவரை<br>2</th>
+            <th class="col-sub">இம்மாதம்<br>3</th>
+            <th class="col-sub">மொத்தம்<br>4</th>
+            <th class="col-sub">இது வரை<br>10</th>
+            <th class="col-sub">இம்மாதம்<br>11</th>
+            <th class="col-sub">மொத்தம்<br>12</th>
           </tr>
         </thead>
         <tbody id="memberList"></tbody>
@@ -66,7 +68,6 @@
       </table>
     </div>
 
-    <!-- சுருக்கக் கட்டங்கள் -->
     <div class="reconciliation-container">
       <div class="box">
         <h3>வரவு விவரங்கள்</h3>
@@ -89,7 +90,6 @@
       </div>
     </div>
 
-    <!-- ஃபார்முலா குறிப்புகள் (இணையதளத்தில் மட்டும் தெரியும், பிரிண்டில் வராது) -->
     <div class="formula-footer">
       <h4>ஃபார்முலா குறிப்புகள் (Calculation Rules):</h4>
       <ul>
@@ -102,7 +102,6 @@
       </ul>
     </div>
 
-    <!-- பொத்தான்கள் -->
     <div class="btn-group">
       <button class="btn btn-rollover" onclick="loadBookData()">படிவத் தரவை ஏற்று (Load Book Data)</button>
       <button class="btn btn-save" onclick="manualSave()">Save Data</button>
@@ -110,7 +109,6 @@
       <button class="btn btn-print" onclick="window.print()">Print / Save PDF</button>
     </div>
 
-    <!-- Footer & Credits -->
     <footer class="app-footer">
       <p>
         Developer: <strong>Kalaikannan</strong> | 
@@ -126,7 +124,6 @@
     </footer>
   </div>
 
-  <!-- Privacy Policy Modal -->
   <div id="privacyModal" class="modal-overlay" onclick="closeOnOverlay(event, 'privacyModal')">
     <div class="modal-card">
       <div class="modal-header">
@@ -141,7 +138,6 @@
     </div>
   </div>
 
-  <!-- Terms of Use Modal -->
   <div id="termsModal" class="modal-overlay" onclick="closeOnOverlay(event, 'termsModal')">
     <div class="modal-card">
       <div class="modal-header">

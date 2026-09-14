@@ -1,7 +1,6 @@
 const TOTAL_MEMBERS = 20;
-const STORAGE_KEY = "shg_calculator_data_v11";
+const STORAGE_KEY = "shg_calculator_data_v13";
 
-// உறுதிப்படுத்தப்பட்ட சரியான 12 உறுப்பினர்களின் பெயர்கள் மற்றும் அசல் தரவுகள்
 const bookData = [
   { name: "திலகவதி", c2: 5600, c3: 200, c5: 28500, c6: 28500, c7: 12000, c8: 0, c9: 12000, c10: 3460, c11: 0, c12: 3760 },
   { name: "அன்பழகி", c2: 5600, c3: 200, c5: 18000, c6: 3500, c7: 0, c8: 1000, c9: 7500, c10: 1080, c11: 160, c12: 1160 },
@@ -81,7 +80,7 @@ function loadBookData() {
 
   calculateAll();
   autoSave();
-  updateStatus("சரியான பெயர்களுடன் தரவுகள் ஏற்றப்பட்டன ✓");
+  updateStatus("படிவத் தரவுகள் முழுமையாக ஏற்றப்பட்டன ✓");
 }
 
 function calculateAll() {
@@ -99,16 +98,13 @@ function calculateAll() {
     const input11 = document.getElementById(`c11_${i}`);
     let c11 = input11 && input11.value !== "" ? parseFloat(input11.value) || 0 : 0;
 
-    // 1. மொத்த சேமிப்பு (4 = 2 + 3)
     const c4 = (c2 || c3) ? (c2 + c3) : 0;
 
-    // 2. கடன் பாக்கி (9 = பழைய கடன் 5 + புதிய கடன் 7 - கட்டிய தவணை 6)
     let c9 = 0;
     if (c5 || c7 || c6) {
       c9 = Math.max(0, (c5 + c7) - c6);
     }
 
-    // 3. இம்மாத வரவு (12 = 3 + 8 + 11)
     let c12 = 0;
     if (c3 || c8 || c11) {
       c12 = c3 + c8 + c11;
@@ -134,13 +130,11 @@ function calculateAll() {
     t11 += c11; t12 += c12;
   }
 
-  // Footer Totals
   setText("tot_2", t2); setText("tot_3", t3); setText("tot_4", t4);
   setText("tot_5", t5); setText("tot_6", t6); setText("tot_7", t7);
   setText("tot_8", t8); setText("tot_9", t9); setText("tot_10", t10);
   setText("tot_11", t11); setText("tot_12", t12);
 
-  // சுருக்கக் கட்டக் கணக்கீடுகள்
   const bankInt = numVal("rec_bank_int");
   const otherInc = numVal("rec_other");
   const expense = numVal("rec_expense");
@@ -158,7 +152,6 @@ function calculateAll() {
   setField("rec_loan_given", loanGiven);
   setField("rec_right_total", loanGiven + expense + passbook);
 
-  // வங்கியில் செலுத்தியது: இம்மாத சேமிப்பு + கடன் தவணை + வட்டி (3+8+11 = ₹11,710)
   const actualDeposit = t3 + t8 + t11;
   setField("rec_bank_deposit", actualDeposit);
 }
